@@ -452,6 +452,13 @@ ul li strong{
 .seat:hover {
     background: #bfc4e6;
 }
+.seat.booked {
+    background: #888 !important;
+    color: #fff !important;
+    border: 1.5px solid #888 !important;
+    cursor: not-allowed !important;
+    opacity: 0.7;
+}
 .buy-tickets-btn {
     background: #217a21;
     color: #fff;
