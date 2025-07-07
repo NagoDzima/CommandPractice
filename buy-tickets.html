@@ -1,0 +1,143 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="./styles.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Unbounded:wght@200..900&display=swap" rel="stylesheet">
+    <title>CinemaTick</title>
+    <style>
+        /* Inline fallback for seat selection */
+        .seat.selected { background: #333766 !important; color: #fff !important; border: 1.5px solid #333766 !important; }
+    </style>
+</head>
+<body>
+    <nav>
+        <h1><a href="./index.html">CinemaTick</a></h1>
+        <div class="nav-buts">
+            <h3 class="nav-but"><a href="./contacts.html">Contacs</a></h3>
+            <h3 class="nav-but"><a href="./support.html">Support</a></h3>
+            <h3 class="nav-but"><a href="./buy-tickets.html">Buy tickets</a></h3>
+        </div>
+        <div class="back"></div>
+        <div id="menu">
+            <div id="first"></div>
+            <div id="second"></div>
+            <div id="third"></div>
+        </div>
+        <div id="spad">
+            <h3 class="spad-but"><a href="./support.html">Support</a></h3>
+            <h3 class="spad-but"><a href="./contacts.html">Contacs</a></h3>
+            <h3 class="spad-but"><a href="./buy-tickets.html">Buy tickets</a></h3>
+        </div>
+    </nav>
+    <main class="tickets-main">
+        <section class="posters">
+            <div class="poster-card">
+                <img src="https://m.media-amazon.com/images/I/81p+xe8cbnL._AC_SY679_.jpg" alt="Inception Poster" class="film-poster">
+                <h2>Inception</h2>
+                <p>Genre: Sci-Fi, Thriller</p>
+                <button class="select-film" data-film="Inception">Select</button>
+            </div>
+            <div class="poster-card">
+                <img src="https://m.media-amazon.com/images/I/61wrhEawgQL._UF1000,1000_QL80_.jpg" alt="Interstellar Poster" class="film-poster">
+                <h2>Interstellar</h2>
+                <p>Genre: Adventure, Drama</p>
+                <button class="select-film" data-film="Interstellar">Select</button>
+            </div>
+            <div class="poster-card">
+                <img src="https://m.media-amazon.com/images/I/91KkWf50SoL._AC_SY679_.jpg" alt="The Dark Knight Poster" class="film-poster">
+                <h2>The Dark Knight</h2>
+                <p>Genre: Action, Crime</p>
+                <button class="select-film" data-film="The Dark Knight">Select</button>
+            </div>
+        </section>
+        <section class="calendar-seats">
+            <div class="calendar">
+                <h3>Select Date</h3>
+                <input type="date" id="show-date">
+            </div>
+            <div class="seats">
+                <h3>Select Seats</h3>
+                <div class="seats-grid">
+                    <button class="seat">A1</button>
+                    <button class="seat">A2</button>
+                    <button class="seat">A3</button>
+                    <button class="seat">A4</button>
+                    <button class="seat">B1</button>
+                    <button class="seat">B2</button>
+                    <button class="seat">B3</button>
+                    <button class="seat">B4</button>
+                    <button class="seat">C1</button>
+                    <button class="seat">C2</button>
+                    <button class="seat">C3</button>
+                    <button class="seat">C4</button>
+                </div>
+                <button class="buy-tickets-btn">Buy Tickets</button>
+                <div id="ticket-message" style="margin-top:10px;"></div>
+            </div>
+        </section>
+    </main>
+    <footer>
+        <h1>CinemaTick</h1>
+        <h4>DKO Corp.&copy</h4>
+        <ul id="email">
+            <li><strong>E-mail</strong></li>
+            <li>kn24-d.duzhii@nubip.edu.ua</li>
+            <li>kn24-y.chen@nubip.edu.ua</li>
+            <li>kn24-m.kuznetsov@nubip.edu.ua</li>
+        </ul>
+        <ul id="phone">
+            <li><strong>Phone</strong></li>
+            <li>+380686781109</li>
+            <li>+380678640704</li>
+            <li>+380636158029</li>
+        </ul>
+    </footer>
+    <script>
+    let selectedFilm = null;
+    document.querySelectorAll('.select-film').forEach(btn => {
+        btn.addEventListener('click', function() {
+            document.querySelectorAll('.select-film').forEach(b => b.textContent = 'Select');
+            this.textContent = 'Selected';
+            selectedFilm = this.getAttribute('data-film');
+        });
+    });
+    let selectedSeats = [];
+    document.querySelectorAll('.seat').forEach(seat => {
+        seat.addEventListener('click', function() {
+            this.classList.toggle('selected');
+            const seatNum = this.textContent;
+            if (selectedSeats.includes(seatNum)) {
+                selectedSeats = selectedSeats.filter(s => s !== seatNum);
+            } else {
+                selectedSeats.push(seatNum);
+            }
+        });
+    });
+    document.querySelector('.buy-tickets-btn').addEventListener('click', function() {
+        const date = document.getElementById('show-date').value;
+        const msg = document.getElementById('ticket-message');
+        if (!selectedFilm) {
+            msg.textContent = 'Please select a film.';
+            msg.style.color = '#a12a2a';
+            return;
+        }
+        if (!date) {
+            msg.textContent = 'Please select a date.';
+            msg.style.color = '#a12a2a';
+            return;
+        }
+        if (selectedSeats.length === 0) {
+            msg.textContent = 'Please select at least one seat.';
+            msg.style.color = '#a12a2a';
+            return;
+        }
+        msg.textContent = `Tickets bought for ${selectedFilm} on ${date}, seats: ${selectedSeats.join(', ')}.`;
+        msg.style.color = '#217a21';
+    });
+    </script>
+</body>
+</html>
