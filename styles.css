@@ -257,7 +257,9 @@ p{
     color: #333766;
     text-shadow: 0 1px 2px black;
     text-align: left;
-    margin-bottom: 250px;
+}
+#bottom{
+    margin-bottom: 150px;
 }
 .bold{
     font-weight: bold;
