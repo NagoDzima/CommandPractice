@@ -266,7 +266,7 @@ p{
 
 footer{
     width: 100%;
-    height: 130px;
+    height: 100px;
     background-color: #353535;
     position: fixed;
     bottom: 0;
@@ -438,6 +438,11 @@ ul li strong{
     font-size: 15px;
     cursor: pointer;
     transition: background 0.2s, color 0.2s, border 0.2s;
+}
+.seat.selected { 
+    background: #333766 !important; 
+    color: #fff !important; 
+    border: 1.5px solid #333766 !important; 
 }
 .seat.selected, .seat:active {
     background: #333766;
