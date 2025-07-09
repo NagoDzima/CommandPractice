@@ -1,5 +1,3 @@
-// Ticket booking script for buy-tickets.html
-// Stores bookings in localStorage by film+date
 
 document.addEventListener('DOMContentLoaded', function () {
     const filmButtons = document.querySelectorAll('.select-film');
@@ -12,12 +10,10 @@ document.addEventListener('DOMContentLoaded', function () {
     let selectedDate = null;
     let selectedSeats = new Set();
 
-    // Helper: booking key
     function getBookingKey(film, date) {
         return `booking_${film}_${date}`;
     }
 
-    // Helper: get booked seats for film+date
     function getBookedSeats(film, date) {
         if (!film || !date) return [];
         const key = getBookingKey(film, date);
@@ -25,13 +21,11 @@ document.addEventListener('DOMContentLoaded', function () {
         return data ? JSON.parse(data) : [];
     }
 
-    // Helper: set booked seats
     function setBookedSeats(film, date, seats) {
         const key = getBookingKey(film, date);
         localStorage.setItem(key, JSON.stringify(seats));
     }
 
-    // Update seat UI based on selection and booking
     function updateSeatsUI() {
         seatButtons.forEach(btn => {
             btn.classList.remove('selected', 'booked');
@@ -50,7 +44,6 @@ document.addEventListener('DOMContentLoaded', function () {
         });
     }
 
-    // Film selection
     filmButtons.forEach(btn => {
         btn.addEventListener('click', function () {
             selectedFilm = btn.dataset.film;
@@ -60,7 +53,6 @@ document.addEventListener('DOMContentLoaded', function () {
         });
     });
 
-    // Date selection
     dateInput.addEventListener('change', function () {
         selectedDate = dateInput.value;
         selectedSeats.clear();
@@ -68,7 +60,6 @@ document.addEventListener('DOMContentLoaded', function () {
         updateSeatsUI();
     });
 
-    // Seat selection
     seatButtons.forEach(btn => {
         btn.addEventListener('click', function () {
             if (!selectedFilm || !selectedDate) {
@@ -86,7 +77,6 @@ document.addEventListener('DOMContentLoaded', function () {
         });
     });
 
-    // Buy tickets
     buyBtn.addEventListener('click', function () {
         if (!selectedFilm || !selectedDate) {
             messageDiv.textContent = 'Please select a film and date!';
@@ -108,8 +98,4 @@ document.addEventListener('DOMContentLoaded', function () {
         selectedSeats.clear();
         updateSeatsUI();
     });
-
-    // On load, try to restore film/date selection
-    // (Optional: can be removed if not needed)
-    // updateSeatsUI();
 });
